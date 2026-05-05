@@ -1,0 +1,165 @@
+# ----------------------------
+
+# 🐍 Python
+
+# ----------------------------
+
+**pycache**/
+*.py[cod]
+*$py.class
+
+# Distribución / packaging
+
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# ----------------------------
+
+# 🔐 Entornos virtuales
+
+# ----------------------------
+
+.env
+.env.*
+.venv/
+venv/
+ENV/
+env/
+env.bak/
+venv.bak/
+
+# ----------------------------
+
+# ⚙️ Configuración sensible
+
+# ----------------------------
+
+*.env
+*.sqlite3
+*.db
+*.log
+
+# Archivos de configuración locales
+
+settings.local.py
+
+# ----------------------------
+
+# 🧪 Testing / coverage
+
+# ----------------------------
+
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
+# ----------------------------
+
+# 🧠 IDEs / editores
+
+# ----------------------------
+
+# VS Code
+
+.vscode/
+
+# PyCharm
+
+.idea/
+
+# Sublime
+
+*.sublime-project
+*.sublime-workspace
+
+# ----------------------------
+
+# 🧾 Logs
+
+# ----------------------------
+
+logs/
+*.log
+
+# ----------------------------
+
+# 🗄️ Base de datos
+
+# ----------------------------
+
+*.sqlite
+*.db
+
+# ----------------------------
+
+# ☁️ OS / sistema
+
+# ----------------------------
+
+.DS_Store
+Thumbs.db
+
+# ----------------------------
+
+# 🚀 FastAPI / Uvicorn
+
+# ----------------------------
+
+*.pid
+*.sock
+
+# ----------------------------
+
+# 📦 Docker (si lo usas)
+
+# ----------------------------
+
+docker-compose.override.yml
+
+# ----------------------------
+
+# 🔄 Alembic (migraciones)
+
+# ----------------------------
+
+alembic/versions/**pycache**/
+
+# ----------------------------
+
+# 🔒 Secretos (MUY IMPORTANTE)
+
+# ----------------------------
+
+*.pem
+*.key
+*.crt
+
+# ----------------------------
+
+# 📁 Archivos temporales
+
+# ----------------------------
+
+*.tmp
+*.temp
