@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException
 
 from models.fruta import FrutaCrear, FrutaLeer, Fruta
 from db.base import get_session
-from services.crud import (obtener_todos, 
+from services.crud import (actualizar, obtener_todos, 
                            obtener_id,
                            crear,
                            eliminar
@@ -16,9 +16,9 @@ def crear_fruta(fruta: FrutaCrear, session = Depends(get_session)):
     return crear(session, nueva_fruta)
 
 @router.get("/", response_model=list[FrutaLeer])
-def obtener_frutaes(session = Depends(get_session)):
-    frutaes = obtener_todos(session, model=Fruta)
-    return frutaes
+def obtener_frutas(session = Depends(get_session)):
+    frutas = obtener_todos(session, model=Fruta)
+    return frutas
 
 @router.get("/{fruta_id}", response_model=FrutaLeer)
 def obtener_fruta(fruta_id: int, session = Depends(get_session)):
@@ -33,3 +33,12 @@ def eliminar_fruta(fruta_id: int, session = Depends(get_session)):
     if not exito:
         raise HTTPException(status_code=404, detail="Fruta no encontrada")
     return {"detail": "Fruta eliminada exitosamente"}
+
+@router.patch("/{fruta_id}", response_model=FrutaLeer)
+def actualizar_fruta(fruta_id: int, fruta_data: FrutaActualizar, session: Session = Depends(get_session)):
+    fruta_db = obtener_id(session, Fruta, fruta_id)
+
+    if not fruta_db:
+        raise HTTPException(404, "Fruta no encontrada")
+
+    return actualizar(session, fruta_db, fruta_data)

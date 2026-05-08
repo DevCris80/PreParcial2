@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException
 
 from models.personajes import PersonajeCrear, PersonajeLeer, Personaje
 from db.base import get_session
-from services.crud import (obtener_todos, 
+from services.crud import (actualizar, obtener_todos, 
                            obtener_id,
                            crear,
                            eliminar
@@ -33,3 +33,12 @@ def eliminar_personaje(personaje_id: int, session = Depends(get_session)):
     if not exito:
         raise HTTPException(status_code=404, detail="Personaje no encontrado")
     return {"detail": "Personaje eliminado exitosamente"}
+
+@router.patch("/{personaje_id}", response_model=PersonajeLeer)
+def actualizar_personaje(personaje_id: int, personaje_data: PersonajeActualizar, session: Session = Depends(get_session)):
+    personaje_db = obtener_id(session, Personaje, personaje_id)
+
+    if not personaje_db:
+        raise HTTPException(404, "Personaje no encontrado")
+
+    return actualizar(session, personaje_db, personaje_data)

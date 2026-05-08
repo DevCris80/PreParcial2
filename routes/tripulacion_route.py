@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException
 
 from models.tripulacion import TripulacionCrear, TripulacionLeer, Tripulacion
 from db.base import get_session
-from services.crud import (obtener_todos, 
+from services.crud import (actualizar, obtener_todos, 
                            obtener_id,
                            crear,
                            eliminar
@@ -33,3 +33,12 @@ def eliminar_tripulacion(tripulacion_id: int, session = Depends(get_session)):
     if not exito:
         raise HTTPException(status_code=404, detail="Tripulación no encontrada")
     return {"detail": "Tripulación eliminada exitosamente"}
+
+@router.patch("/{tripulacion_id}", response_model=TripulacionLeer)
+def actualizar_tripulacion(tripulacion_id: int, tripulacion_data: TripulacionActualizar, session: Session = Depends(get_session)):
+    tripulacion_db = obtener_id(session, Tripulacion, tripulacion_id)
+
+    if not tripulacion_db:
+        raise HTTPException(404, "Tripulación no encontrada")
+
+    return actualizar(session, tripulacion_db, tripulacion_data)
