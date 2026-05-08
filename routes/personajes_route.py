@@ -4,15 +4,16 @@ from models.personajes import PersonajeCrear, PersonajeLeer, Personaje
 from db.base import get_session
 from services.crud import (obtener_todos, 
                            obtener_id,
-                           crear_personaje
+                           crear,
+                           eliminar_personaje
                           )
 
 router = APIRouter(prefix="/personajes", tags=["personajes"])
 
 @router.post("/", response_model=PersonajeLeer)
 def crear_personaje(personaje: PersonajeCrear, session = Depends(get_session)):
-    nuevo_personaje = crear_personaje(session, personaje)
-    return nuevo_personaje
+    nuevo_personaje = Personaje.model_validate(personaje)
+    return crear(session, nuevo_personaje)
 
 @router.get("/", response_model=list[PersonajeLeer])
 def obtener_personakjes(session = Depends(get_session)):
@@ -25,3 +26,10 @@ def obtener_personaje(personaje_id: int, session = Depends(get_session)):
     if personaje is None:
         raise HTTPException(status_code=404, detail="Personaje no encontrado")
     return personaje
+
+@router.delete("/{personaje_id}")
+def eliminar_personaje(personaje_id: int, session = Depends(get_session)):
+    exito = eliminar_personaje(session, personaje_id)
+    if not exito:
+        raise HTTPException(status_code=404, detail="Personaje no encontrado")
+    return {"detail": "Personaje eliminado exitosamente"}
