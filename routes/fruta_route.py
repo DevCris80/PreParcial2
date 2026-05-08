@@ -17,12 +17,12 @@ def crear_fruta(fruta: FrutaCrear, session = Depends(get_session)):
 
 @router.get("/", response_model=list[FrutaLeer])
 def obtener_frutas(session = Depends(get_session)):
-    frutas = obtener_todos(session, model=Fruta)
+    frutas = obtener_todos(session, modelo=Fruta)
     return frutas
 
 @router.get("/{fruta_id}", response_model=FrutaLeer)
 def obtener_fruta(fruta_id: int, session = Depends(get_session)):
-    fruta = obtener_id(session, model=Fruta, id=fruta_id)
+    fruta = obtener_id(session, modelo=Fruta, id=fruta_id)
     if fruta is None:
         raise HTTPException(status_code=404, detail="Fruta no encontrada")
     return fruta

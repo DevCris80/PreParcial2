@@ -16,13 +16,13 @@ def crear_personaje(personaje: PersonajeCrear, session = Depends(get_session)):
     return crear(session, nuevo_personaje)
 
 @router.get("/", response_model=list[PersonajeLeer])
-def obtener_personakjes(session = Depends(get_session)):
-    personajes = obtener_todos(session, model=Personaje)
+def obtener_personajes(session = Depends(get_session)):
+    personajes = obtener_todos(session, modelo=Personaje)
     return personajes
 
 @router.get("/{personaje_id}", response_model=PersonajeLeer)
 def obtener_personaje(personaje_id: int, session = Depends(get_session)):
-    personaje = obtener_id(session, model=Personaje, id=personaje_id)
+    personaje = obtener_id(session, modelo=Personaje, id=personaje_id)
     if personaje is None:
         raise HTTPException(status_code=404, detail="Personaje no encontrado")
     return personaje

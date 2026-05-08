@@ -17,12 +17,12 @@ def crear_tripulacion(tripulacion: TripulacionCrear, session = Depends(get_sessi
 
 @router.get("/", response_model=list[TripulacionLeer])
 def obtener_tripulaciones(session = Depends(get_session)):
-    tripulaciones = obtener_todos(session, model=Tripulacion)
+    tripulaciones = obtener_todos(session, modelo=Tripulacion)
     return tripulaciones
 
 @router.get("/{tripulacion_id}", response_model=TripulacionLeer)
 def obtener_tripulacion(tripulacion_id: int, session = Depends(get_session)):
-    tripulacion = obtener_id(session, model=Tripulacion, id=tripulacion_id)
+    tripulacion = obtener_id(session, modelo=Tripulacion, id=tripulacion_id)
     if tripulacion is None:
         raise HTTPException(status_code=404, detail="Tripulación no encontrada")
     return tripulacion
