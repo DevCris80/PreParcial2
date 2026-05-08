@@ -19,10 +19,10 @@ def obtener_id(session: Session, modelo: Type[SQLModel], id: int) -> SQLModel | 
     resultado = session.exec(consulta).first()
     return resultado
 
-def eliminar_personaje(session: Session, personaje_id: int) -> bool:
-    personaje = obtener_id(session, modelo=Personaje, id=personaje_id)
-    if not personaje:
+def eliminar(session: Session, id: int, modelo: Type[SQLModel]) -> bool:
+    objeto = obtener_id(session, modelo=modelo, id=id)
+    if not objeto:
         return False
-    personaje.estado = False
+    objeto.estado = False
     session.commit()
     return True
