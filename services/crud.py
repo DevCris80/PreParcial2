@@ -1,23 +1,13 @@
 from sqlmodel import SQLModel, Session, select
 from typing import Type
 
-def crear_personaje(session: Session, personaje: SQLModel) -> SQLModel:
-    session.add(personaje)
-    session.commit()
-    session.refresh(personaje)
-    return personaje
+from models.personajes import Personaje
 
-def crear_fruta(session: Session, fruta: SQLModel) -> SQLModel:
-    session.add(fruta)
+def crear(session: Session, objeto: SQLModel) -> SQLModel:
+    session.add(objeto)
     session.commit()
-    session.refresh(fruta)
-    return fruta
-
-def crear_tripulacion(session: Session, tripulacion: SQLModel) -> SQLModel:
-    session.add(tripulacion)
-    session.commit()
-    session.refresh(tripulacion)
-    return tripulacion
+    session.refresh(objeto)
+    return objeto
 
 def obtener_todos(session: Session, modelo: Type[SQLModel]) -> list[SQLModel]:
     consulta = select(modelo)
@@ -28,3 +18,11 @@ def obtener_id(session: Session, modelo: Type[SQLModel], id: int) -> SQLModel | 
     consulta = select(modelo).where(modelo.id == id)
     resultado = session.exec(consulta).first()
     return resultado
+
+def eliminar_personaje(session: Session, personaje_id: int) -> bool:
+    personaje = obtener_id(session, modelo=Personaje, id=personaje_id)
+    if not personaje:
+        return False
+    personaje.estado = False
+    session.commit()
+    return True
