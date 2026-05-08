@@ -26,3 +26,15 @@ def eliminar(session: Session, id: int, modelo: Type[SQLModel]) -> bool:
     objeto.estado = False
     session.commit()
     return True
+
+def actualizar(session: Session, objeto: SQLModel, datos_actualizados: SQLModel) -> SQLModel:
+    datos = datos_actualizados.model_dump(exclude_unset=True)
+
+    for campo, valor in datos.items():
+        setattr(objeto, campo, valor)
+
+    session.add(objeto)
+    session.commit()
+    session.refresh(objeto)
+
+    return objeto
