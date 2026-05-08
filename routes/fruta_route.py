@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException
 
-from models.fruta import FrutaCrear, FrutaLeer, Fruta
+from models.fruta import FrutaCrear, FrutaLeer, FrutaActualizar, Fruta
 from db.base import get_session
 from services.crud import (actualizar, obtener_todos, 
                            obtener_id,
@@ -35,7 +35,7 @@ def eliminar_fruta(fruta_id: int, session = Depends(get_session)):
     return {"detail": "Fruta eliminada exitosamente"}
 
 @router.patch("/{fruta_id}", response_model=FrutaLeer)
-def actualizar_fruta(fruta_id: int, fruta_data: FrutaActualizar, session: Session = Depends(get_session)):
+def actualizar_fruta(fruta_id: int, fruta_data: FrutaActualizar, session = Depends(get_session)):
     fruta_db = obtener_id(session, Fruta, fruta_id)
 
     if not fruta_db:

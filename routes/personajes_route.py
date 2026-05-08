@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException
 
-from models.personajes import PersonajeCrear, PersonajeLeer, Personaje
+from models.personajes import PersonajeCrear, PersonajeLeer, PersonajeActualizar, Personaje
 from db.base import get_session
 from services.crud import (actualizar, obtener_todos, 
                            obtener_id,
@@ -35,7 +35,7 @@ def eliminar_personaje(personaje_id: int, session = Depends(get_session)):
     return {"detail": "Personaje eliminado exitosamente"}
 
 @router.patch("/{personaje_id}", response_model=PersonajeLeer)
-def actualizar_personaje(personaje_id: int, personaje_data: PersonajeActualizar, session: Session = Depends(get_session)):
+def actualizar_personaje(personaje_id: int, personaje_data: PersonajeActualizar, session = Depends(get_session)):
     personaje_db = obtener_id(session, Personaje, personaje_id)
 
     if not personaje_db:
