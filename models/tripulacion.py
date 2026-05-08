@@ -32,3 +32,8 @@ class TripulacionLeer(TripulacionBase):
 
 class TripulacionCrear(TripulacionBase):
     pass
+
+class TripulacionActualizar(SQLModel):
+    nombre: str | None = None
+    capitan: str | None = None
+    origen: Origen | None = None
