@@ -5,7 +5,7 @@ from db.base import get_session
 from services.crud import (obtener_todos, 
                            obtener_id,
                            crear,
-                           eliminar_personaje
+                           eliminar
                           )
 
 router = APIRouter(prefix="/personajes", tags=["personajes"])
@@ -29,7 +29,7 @@ def obtener_personaje(personaje_id: int, session = Depends(get_session)):
 
 @router.delete("/{personaje_id}")
 def eliminar_personaje(personaje_id: int, session = Depends(get_session)):
-    exito = eliminar_personaje(session, personaje_id)
+    exito = eliminar(session, personaje_id, Personaje)
     if not exito:
         raise HTTPException(status_code=404, detail="Personaje no encontrado")
     return {"detail": "Personaje eliminado exitosamente"}
