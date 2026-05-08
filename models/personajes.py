@@ -24,6 +24,7 @@ class PersonajeBase(SQLModel):
 
 class Personaje(PersonajeBase, table=True):
     id: int | None = Field(default=None, primary_key=True)
+    estado: bool = Field(default=True)
 
     fruta: "Fruta" = Relationship(back_populates="personajes")
     tripulacion: "Tripulacion" = Relationship(back_populates="personajes")
@@ -31,6 +32,7 @@ class Personaje(PersonajeBase, table=True):
 
 class PersonajeLeer(PersonajeBase):
     id: int
+    estado: bool
 
 
 class PersonajeCrear(PersonajeBase):

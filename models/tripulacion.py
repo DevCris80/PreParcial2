@@ -20,12 +20,14 @@ class TripulacionBase(SQLModel):
 
 class Tripulacion(TripulacionBase, table=True):
     id: int | None = Field(default=None, primary_key=True)
+    estado: bool = Field(default=True)
 
     personajes: list["Personaje"] = Relationship(back_populates="tripulacion")
 
 
 class TripulacionLeer(TripulacionBase):
     id: int
+    estado: bool
 
 
 class TripulacionCrear(TripulacionBase):

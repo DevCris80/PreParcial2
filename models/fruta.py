@@ -17,12 +17,14 @@ class FrutaBase(SQLModel):
 
 class Fruta(FrutaBase, table=True):
     id: int | None = Field(default=None, primary_key=True)
+    estado: bool = Field(default=True)
 
     personajes: list["Personaje"] = Relationship(back_populates="fruta")
 
 
 class FrutaLeer(FrutaBase):
     id: int
+    estado: bool
 
 
 class FrutaCrear(FrutaBase):
