@@ -37,3 +37,10 @@ class PersonajeLeer(PersonajeBase):
 
 class PersonajeCrear(PersonajeBase):
     pass
+
+class PersonajeActualizar(SQLModel):
+    nombre: str | None = None
+    rol: Rol | None = None
+    recompensa: float | None = None
+    tripulacion_id: int | None = None
+    fruta_id: int | None = None
