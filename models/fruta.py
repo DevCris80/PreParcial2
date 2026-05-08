@@ -29,3 +29,8 @@ class FrutaLeer(FrutaBase):
 
 class FrutaCrear(FrutaBase):
     pass
+
+class FrutaActualizar(SQLModel):
+    nombre: str | None = None
+    tipo: TipoFruta | None = None
+    descripcion: str | None = None
